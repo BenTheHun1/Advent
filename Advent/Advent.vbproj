@@ -80,6 +80,12 @@
       <DependentUpon>Advent.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -100,11 +106,14 @@
     <EmbeddedResource Include="Advent.resx">
       <DependentUpon>Advent.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,35 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\key1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\card-play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\semi-closed-eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\talk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\interdiction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cursor1.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cursor2.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cursor3.cur" />
+    <Content Include="Cursor5.cur" />
+    <Content Include="Cursor4.cur" />
+    <None Include="Resources\1B6G.jpg" />
+    <None Include="Resources\door.png" />
+    <None Include="Resources\keyhole.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
