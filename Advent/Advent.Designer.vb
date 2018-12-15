@@ -22,14 +22,15 @@ Partial Class Advent
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Advent))
         Me.lblOut = New System.Windows.Forms.Label()
         Me.lstInv = New System.Windows.Forms.ListBox()
         Me.menMenu = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.menSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menLoad = New System.Windows.Forms.ToolStripMenuItem()
         Me.menHelp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.picHole = New System.Windows.Forms.PictureBox()
         Me.picBook = New System.Windows.Forms.PictureBox()
         Me.picKey = New System.Windows.Forms.PictureBox()
         Me.picItem = New System.Windows.Forms.PictureBox()
@@ -40,8 +41,8 @@ Partial Class Advent
         Me.picRight = New System.Windows.Forms.PictureBox()
         Me.picLeft = New System.Windows.Forms.PictureBox()
         Me.picBackground = New System.Windows.Forms.PictureBox()
+        Me.tltEye = New System.Windows.Forms.ToolTip(Me.components)
         Me.menMenu.SuspendLayout()
-        CType(Me.picHole, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picBook, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picKey, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picItem, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,10 +62,10 @@ Partial Class Advent
         Me.lblOut.BackColor = System.Drawing.Color.WhiteSmoke
         Me.lblOut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblOut.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.lblOut.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOut.Location = New System.Drawing.Point(12, 460)
+        Me.lblOut.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblOut.Location = New System.Drawing.Point(12, 474)
         Me.lblOut.Name = "lblOut"
-        Me.lblOut.Size = New System.Drawing.Size(933, 35)
+        Me.lblOut.Size = New System.Drawing.Size(933, 51)
         Me.lblOut.TabIndex = 22
         '
         'lstInv
@@ -73,9 +74,10 @@ Partial Class Advent
         Me.lstInv.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lstInv.FormattingEnabled = True
         Me.lstInv.ItemHeight = 15
-        Me.lstInv.Location = New System.Drawing.Point(552, 27)
+        Me.lstInv.Location = New System.Drawing.Point(673, 27)
         Me.lstInv.Name = "lstInv"
-        Me.lstInv.Size = New System.Drawing.Size(393, 64)
+        Me.lstInv.ScrollAlwaysVisible = True
+        Me.lstInv.Size = New System.Drawing.Size(272, 64)
         Me.lstInv.TabIndex = 28
         '
         'menMenu
@@ -84,39 +86,34 @@ Partial Class Advent
         Me.menMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.menMenu.Location = New System.Drawing.Point(-1, 1)
         Me.menMenu.Name = "menMenu"
-        Me.menMenu.Size = New System.Drawing.Size(45, 24)
+        Me.menMenu.Size = New System.Drawing.Size(58, 24)
         Me.menMenu.TabIndex = 29
         Me.menMenu.Text = "MenuStrip1"
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menSave, Me.menHelp})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menSave, Me.menLoad, Me.menHelp})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
+        Me.FileToolStripMenuItem.Text = "Menu"
         '
         'menSave
         '
         Me.menSave.Name = "menSave"
-        Me.menSave.Size = New System.Drawing.Size(107, 22)
+        Me.menSave.Size = New System.Drawing.Size(180, 22)
         Me.menSave.Text = "Save"
+        '
+        'menLoad
+        '
+        Me.menLoad.Name = "menLoad"
+        Me.menLoad.Size = New System.Drawing.Size(180, 22)
+        Me.menLoad.Text = "Load"
         '
         'menHelp
         '
         Me.menHelp.Name = "menHelp"
-        Me.menHelp.Size = New System.Drawing.Size(107, 22)
-        Me.menHelp.Text = "Help?!"
-        '
-        'picHole
-        '
-        Me.picHole.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.picHole.Location = New System.Drawing.Point(552, 297)
-        Me.picHole.Name = "picHole"
-        Me.picHole.Size = New System.Drawing.Size(30, 32)
-        Me.picHole.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picHole.TabIndex = 32
-        Me.picHole.TabStop = False
-        Me.picHole.Visible = False
+        Me.menHelp.Size = New System.Drawing.Size(180, 22)
+        Me.menHelp.Text = "Help"
         '
         'picBook
         '
@@ -127,6 +124,7 @@ Partial Class Advent
         Me.picBook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picBook.TabIndex = 19
         Me.picBook.TabStop = False
+        Me.tltEye.SetToolTip(Me.picBook, "Ancient Book")
         '
         'picKey
         '
@@ -137,6 +135,7 @@ Partial Class Advent
         Me.picKey.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picKey.TabIndex = 17
         Me.picKey.TabStop = False
+        Me.tltEye.SetToolTip(Me.picKey, "Golden Key")
         '
         'picItem
         '
@@ -147,6 +146,7 @@ Partial Class Advent
         Me.picItem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picItem.TabIndex = 27
         Me.picItem.TabStop = False
+        Me.tltEye.SetToolTip(Me.picItem, "Use item")
         '
         'picTake
         '
@@ -157,6 +157,7 @@ Partial Class Advent
         Me.picTake.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picTake.TabIndex = 27
         Me.picTake.TabStop = False
+        Me.tltEye.SetToolTip(Me.picTake, "Pick up")
         '
         'picTalk
         '
@@ -167,6 +168,7 @@ Partial Class Advent
         Me.picTalk.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picTalk.TabIndex = 27
         Me.picTalk.TabStop = False
+        Me.tltEye.SetToolTip(Me.picTalk, "Talk to")
         '
         'picUse
         '
@@ -177,6 +179,7 @@ Partial Class Advent
         Me.picUse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picUse.TabIndex = 27
         Me.picUse.TabStop = False
+        Me.tltEye.SetToolTip(Me.picUse, "Interact")
         '
         'picLook
         '
@@ -187,6 +190,7 @@ Partial Class Advent
         Me.picLook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picLook.TabIndex = 27
         Me.picLook.TabStop = False
+        Me.tltEye.SetToolTip(Me.picLook, "Examine")
         '
         'picRight
         '
@@ -195,7 +199,7 @@ Partial Class Advent
         Me.picRight.Cursor = System.Windows.Forms.Cursors.PanEast
         Me.picRight.Location = New System.Drawing.Point(907, 108)
         Me.picRight.Name = "picRight"
-        Me.picRight.Size = New System.Drawing.Size(38, 349)
+        Me.picRight.Size = New System.Drawing.Size(38, 363)
         Me.picRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picRight.TabIndex = 23
         Me.picRight.TabStop = False
@@ -207,7 +211,7 @@ Partial Class Advent
         Me.picLeft.Cursor = System.Windows.Forms.Cursors.PanWest
         Me.picLeft.Location = New System.Drawing.Point(12, 108)
         Me.picLeft.Name = "picLeft"
-        Me.picLeft.Size = New System.Drawing.Size(48, 349)
+        Me.picLeft.Size = New System.Drawing.Size(48, 363)
         Me.picLeft.TabIndex = 24
         Me.picLeft.TabStop = False
         '
@@ -216,10 +220,16 @@ Partial Class Advent
         Me.picBackground.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.picBackground.Location = New System.Drawing.Point(66, 108)
         Me.picBackground.Name = "picBackground"
-        Me.picBackground.Size = New System.Drawing.Size(835, 349)
+        Me.picBackground.Size = New System.Drawing.Size(835, 363)
         Me.picBackground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picBackground.TabIndex = 16
         Me.picBackground.TabStop = False
+        '
+        'tltEye
+        '
+        Me.tltEye.AutoPopDelay = 5000
+        Me.tltEye.InitialDelay = 100
+        Me.tltEye.ReshowDelay = 100
         '
         'Advent
         '
@@ -227,7 +237,6 @@ Partial Class Advent
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightGray
         Me.ClientSize = New System.Drawing.Size(959, 534)
-        Me.Controls.Add(Me.picHole)
         Me.Controls.Add(Me.picBook)
         Me.Controls.Add(Me.picKey)
         Me.Controls.Add(Me.lstInv)
@@ -248,7 +257,6 @@ Partial Class Advent
         Me.Text = "Advent"
         Me.menMenu.ResumeLayout(False)
         Me.menMenu.PerformLayout()
-        CType(Me.picHole, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picBook, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picKey, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picItem, System.ComponentModel.ISupportInitialize).EndInit()
@@ -279,5 +287,6 @@ Partial Class Advent
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents menSave As ToolStripMenuItem
     Friend WithEvents menHelp As ToolStripMenuItem
-    Friend WithEvents picHole As PictureBox
+    Friend WithEvents menLoad As ToolStripMenuItem
+    Friend WithEvents tltEye As ToolTip
 End Class

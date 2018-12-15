@@ -5,6 +5,8 @@
 'A rewrite and expansion of my first project. It's an attempt to make an adventure puzzle game, along the lines of Myst.
 '-----------------------------------------------------------------------------------
 
+Imports System.IO
+
 Public Class Advent
     Private Sub Advent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Sets up the randomized element of the fortune-telling
@@ -17,14 +19,11 @@ Public Class Advent
         picTake.Image = My.Resources.pickup
         picUse.Image = My.Resources.grab
         picTalk.Image = My.Resources.talk
-        picHole.Image = My.Resources.keyhole
+
     End Sub
 
     'Modular Variables
     Dim mintLocation As Integer = 0
-    Dim mintBookLocation As Integer = 0
-    Dim mintKeyLocation As Integer = 0
-    Dim mintFortuneStep As Integer = -1
     Dim mintAge As Integer
     Dim mintDay As Integer
     Dim mstrHope As String
@@ -43,7 +42,6 @@ Public Class Advent
                 lblOut.Text = "It doesn't have much to say."
             Case "take"
                 lstInv.Items.Add("Golden Key")
-                mintKeyLocation = -1
                 picKey.Visible = False
             Case Else
                 lblOut.Text = "Nothing happens."
@@ -62,7 +60,6 @@ Public Class Advent
                 lblOut.Text = "It doesn't have much to say."
             Case "take"
                 lstInv.Items.Add("Ancient Book")
-                mintBookLocation = -1
                 picBook.Visible = False
             Case Else
                 lblOut.Text = "Nothing happens."
@@ -91,11 +88,7 @@ Public Class Advent
             Case = 1
                 Select Case mstrActionMode
                     Case "look"
-                        If mintFortuneStep < 0 Then
-                            lblOut.Text = "In front of you lies a glass box, inside of which is a peculiar mannequin. On the side, there is a keyhole surrounded by a circle of gold."
-                        Else
-                            lblOut.Text = "The mannequin awaits your response."
-                        End If
+                        lblOut.Text = "In front of you lies a glass box, inside of which is a peculiar mannequin. On the side, there is a keyhole surrounded by a circle of gold."
                     Case "use"
                         lblOut.Text = "The mannequin does not respond to your gestures."
                     Case "talk"
@@ -103,11 +96,28 @@ Public Class Advent
                     Case "take"
                         lblOut.Text = "It is much too heavy."
                     Case "item"
-                        If lstInv.SelectedItem = "Golden Key" And mintFortuneStep < 0 Then
+                        If lstInv.SelectedItem = "Golden Key" Then
                             frmMann.Show()
                         End If
-                    Case "item" And mintFortuneStep >= 0
-                        lblOut.Text = "The mannequin patiently awaits your response."
+                    Case Else
+                        lblOut.Text = "Nothing happens."
+                        Exit Sub
+
+                End Select
+            Case = 2
+                Select Case mstrActionMode
+                    Case "look"
+                        lblOut.Text = "In front of you lies a wooden door, fitted with a brass handle. The door appears to be locked."
+                    Case "use"
+                        lblOut.Text = "The door appears to be locked."
+                    Case "talk"
+                        lblOut.Text = "No response."
+                    Case "take"
+                        lblOut.Text = "It is firmly set into the frame."
+                    Case "item"
+                        If lstInv.SelectedItem = "Golden Key" Then
+                            lblOut.Text = "This key doesn't seem to work."
+                        End If
                     Case Else
                         lblOut.Text = "Nothing happens."
                         Exit Sub
@@ -139,27 +149,24 @@ Public Class Advent
             Case = 0
                 picBackground.Image = My.Resources.bg
                 'If the items have been collected, they are hidden.
-                If mintKeyLocation = 0 Then
+                If Not lstInv.Items.Contains("Golden Key") Then
                     picKey.Visible = True
                 Else
                     picKey.Visible = False
                 End If
-                If mintBookLocation = 0 Then
+                If Not lstInv.Items.Contains("Ancient Book") Then
                     picBook.Visible = True
                 Else
                     picBook.Visible = False
                 End If
-                picHole.Visible = False
 
             Case = 1
                 picBackground.Image = My.Resources.bg1
                 picKey.Visible = False
                 picBook.Visible = False
-                picHole.Visible = False
 
             Case = 2
                 picBackground.Image = My.Resources.door
-                picHole.Visible = True
                 picKey.Visible = False
                 picBook.Visible = False
 
@@ -216,11 +223,31 @@ Public Class Advent
     End Sub
 
     Private Sub menSave_Click(sender As Object, e As EventArgs) Handles menSave.Click
+        Dim intloop As Integer
+        Dim datListItems As New StreamWriter("AdventSave.txt")
+        Dim intMaximum As Integer
 
+        intMaximum = lstInv.Items.Count - 1
+        For intloop = 0 To intMaximum
+            datListItems.WriteLine(lstInv.Items(intloop))
+        Next
+        datListItems.Close()
     End Sub
 
     Private Sub menHelp_Click(sender As Object, e As EventArgs) Handles menHelp.Click
         MessageBox.Show("Welcome to Advent!" & vbNewLine & "To interact with the world: Click on the Action you would like to perform." & vbNewLine & "Eye: Look at" & vbNewLine & "Grabby Hand: Interact" & vbNewLine & "Speech Bubble: Talk to" & vbNewLine & "Hand Over Object: Pick up" & vbNewLine & "Fifth Action: Use selected item", "Help!", MessageBoxButtons.OK)
+    End Sub
+
+    Private Sub menLoad_Click(sender As Object, e As EventArgs) Handles menLoad.Click
+        Try
+            Dim datListItems As New StreamReader("AdventSave.txt")
+            Do Until datListItems.Peek = -1
+                lstInv.Items.Add(datListItems.ReadLine())
+            Loop
+            datListItems.Close()
+            movement()
+        Catch ex As Exception
+        End Try
     End Sub
 
 End Class
