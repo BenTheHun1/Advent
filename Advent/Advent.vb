@@ -240,6 +240,7 @@ Public Class Advent
 
     Private Sub menLoad_Click(sender As Object, e As EventArgs) Handles menLoad.Click
         Try
+            lstInv.Items.Clear()
             Dim datListItems As New StreamReader("AdventSave.txt")
             Do Until datListItems.Peek = -1
                 lstInv.Items.Add(datListItems.ReadLine())
